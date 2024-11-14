@@ -11,8 +11,9 @@
 	<hr>
 	<nav>
 		<ul>
-			<li><a href="cadastrarVoo">Cadastrar Voo</a></li>
+			<li><a href="cadastrarVoo.jsp">Cadastrar Voo</a></li>
 			<li><a href="atualizarState.jsp">Atualizar estado</a></li>
+			<li><a href="index.jsp">Voltar aos totens</a></li>
 			<li><a href="logout.do">Logout</a></li>
 		</ul>
 	</nav>
