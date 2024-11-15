@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import br.edu.ifsp.dsw1.model.entity.FlightData;
 import br.edu.ifsp.dsw1.model.entity.FlightDataCollection;
+import br.edu.ifsp.dsw1.model.entity.FlightDataSingleton;
 import br.edu.ifsp.dsw1.model.flightstates.Arriving;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,11 +16,6 @@ import jakarta.servlet.http.HttpServletResponse;
 public class CadastroServlet extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
-	private FlightDataCollection collection;
-	
-	public CadastroServlet() {
-		this.collection = new FlightDataCollection();
-	}
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,6 +25,8 @@ public class CadastroServlet extends HttpServlet{
 		
 		FlightData flight = new FlightData(number, company, time);
 		flight.setState(Arriving.getIntance());
+		
+		FlightDataCollection collection = FlightDataSingleton.getInstance();
 		collection.insertFlight(flight);
 		
 		response.sendRedirect("homeAdmin.jsp");
