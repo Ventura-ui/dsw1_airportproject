@@ -6,10 +6,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Sala de Embarque</title>
+<title>Hall 1</title>
 </head>
 <body>
-	<h1>Sala de Embarque:</h1>
+	<body>
+	<h1>Hall 1:</h1>
 	<br>
 	<hr>
 	<br>
@@ -25,7 +26,7 @@
 		</thead>
 		<tbody>
 			<%
-			List<FlightData> lista = (List<FlightData>) request.getAttribute("embarcados");
+			List<FlightData> lista = (List<FlightData>) request.getAttribute("lista_hall1");
 			if(lista != null){
 				for(FlightData f : lista){	
 			%>
@@ -39,7 +40,7 @@
 				}
 			}else{
 			%>
-			<td colspan="5">Nenhum voo em embarque!</td>
+			<td colspan="5">Nenhum voo no Hall 1!</td>
 			<%} %>
 		</tbody>
 	</table>
