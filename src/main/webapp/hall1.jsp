@@ -40,7 +40,7 @@
 				}
 			}else{
 			%>
-			<td colspan="5">Nenhum voo no Hall 1!</td>
+			<td colspan="4">Nenhum voo no Hall 1!</td>
 			<%} %>
 		</tbody>
 	</table>

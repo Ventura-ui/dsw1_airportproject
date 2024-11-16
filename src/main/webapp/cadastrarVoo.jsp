@@ -10,7 +10,7 @@
 	<h1>Fazer cadastro de um novo voo:</h1>
 	<br>
 	<hr>
-	<form action="novoVoo.do" method="post">
+	<form action="admin.do?action=cadastro" method="post">
 		<label for="number">Número de voo:</label>
 		<input type="number" id="number" name="number" required><br><br>
 		

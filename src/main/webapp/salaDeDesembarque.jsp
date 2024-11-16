@@ -39,7 +39,7 @@
 				}
 			}else{
 			%>
-			<td colspan="5">Nenhum voo em desembarque!</td>
+			<td colspan="4">Nenhum voo em desembarque!</td>
 			<%} %>
 		</tbody>
 	</table>

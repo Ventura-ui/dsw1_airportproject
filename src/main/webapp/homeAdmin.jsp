@@ -12,9 +12,9 @@
 	<nav>
 		<ul>
 			<li><a href="cadastrarVoo.jsp">Cadastrar Voo</a></li>
-			<li><a href="update.do">Atualizar estado</a></li>
+			<li><a href="admin.do?action=update">Atualizar estado</a></li>
 			<li><a href="index.jsp">Voltar aos totens</a></li>
-			<li><a href="logout.do">Logout</a></li>
+			<li><a href="admin.do?action=logout">Logout</a></li>
 		</ul>
 	</nav>
 	<hr>

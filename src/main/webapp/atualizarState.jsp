@@ -36,7 +36,7 @@
 				<td><%= f.getTime()%></td>
 				<td><%= f.getState().getClass().getSimpleName()%></td>
 				<td>
-					<form action="update.do" method="post">
+					<form action="admin.do?action=sendUpdate" method="post">
 						<input type="hidden" name="numeroDeVoo" value="<%= f.getFlightNumber()%>">
 						<button type="submit">Atualizar estado</button>
 					</form>
