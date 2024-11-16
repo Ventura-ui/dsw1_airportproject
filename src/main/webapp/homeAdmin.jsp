@@ -13,7 +13,6 @@
 		<ul>
 			<li><a href="cadastrarVoo.jsp">Cadastrar Voo</a></li>
 			<li><a href="admin.do?action=update">Atualizar estado</a></li>
-			<li><a href="index.jsp">Voltar aos totens</a></li>
 			<li><a href="admin.do?action=logout">Logout</a></li>
 		</ul>
 	</nav>

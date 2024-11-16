@@ -3,6 +3,13 @@ package br.edu.ifsp.dsw1.controller;
 import java.io.IOException;
 import java.util.List;
 
+import br.edu.ifsp.dsw1.controller.command.Command;
+import br.edu.ifsp.dsw1.controller.command.ErrorCommand;
+import br.edu.ifsp.dsw1.controller.command.comandosAdmin.CadastroCommand;
+import br.edu.ifsp.dsw1.controller.command.comandosAdmin.LoginCommand;
+import br.edu.ifsp.dsw1.controller.command.comandosAdmin.LogoutCommand;
+import br.edu.ifsp.dsw1.controller.command.comandosAdmin.SendUpdateCommand;
+import br.edu.ifsp.dsw1.controller.command.comandosAdmin.UpdateCommand;
 import br.edu.ifsp.dsw1.model.entity.FlightData;
 import br.edu.ifsp.dsw1.model.entity.FlightDataCollection;
 import br.edu.ifsp.dsw1.model.entity.FlightDataSingleton;
@@ -29,70 +36,24 @@ private static final long serialVersionUID = 1L;
 	
 	private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
+		Command command;
 		
 		if ("login".equals(action)) {
-			handleLogin(request, response);
+			command = new LoginCommand();
 		} else if ("logout".equals(action)) {
-			handleLogout(request, response);
+			command = new LogoutCommand();
 		} else if ("cadastro".equals(action)) {
-			handleCadastro(request, response);
+			command = new CadastroCommand();
 		} else if ("update".equals(action)) {
-			handleUpdate(request, response);
+			command = new UpdateCommand();
 		} else if ("sendUpdate".equals(action)) {
-			handleSendUpdate(request, response);
-		}
-	}
-	
-	private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		
-		if(username.equals("admin") && password.equals("admin")) {
-			HttpSession sessao = request.getSession();
-			
-			sessao.setAttribute("user", "admin");
-			response.sendRedirect("homeAdmin.jsp");
-		}else {
-			response.sendRedirect("login.jsp?error=true");
-		}
-	}
-	
-	private void handleLogout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession sessao = request.getSession(false);
-		
-		if(sessao != null) {
-			sessao.invalidate();
+			command = new SendUpdateCommand();
+		} else {
+			command = new ErrorCommand();
 		}
 		
-		response.sendRedirect("login.jsp");
+		String view = command.execute(request, response);
+		var dispatcher = request.getRequestDispatcher(view);
+		dispatcher.forward(request, response);
 	}
-	
-	private void handleCadastro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Long number = Long.parseLong(request.getParameter("number"));
-		String company = request.getParameter("company");
-		String time = request.getParameter("time");
-		
-		FlightData flight = new FlightData(number, company, time);
-		flight.setState(Arriving.getIntance());
-		
-		FlightDataCollection collection = FlightDataSingleton.getInstance();
-		collection.insertFlight(flight);
-		
-		response.sendRedirect("homeAdmin.jsp");
-	}
-	
-	private void handleUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		FlightDataCollection collection = FlightDataSingleton.getInstance();
-	    List<FlightData> flights = collection.getAllFligthts();
-	    request.setAttribute("flights", flights);
-	    request.getRequestDispatcher("atualizarState.jsp").forward(request, response);
-	}
-	
-	private void handleSendUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		FlightDataCollection collection = FlightDataSingleton.getInstance();
-		Long number = Long.parseLong(request.getParameter("numeroDeVoo"));
-		collection.updateFlight(number);
-		response.sendRedirect("admin.do?action=update");
-	}
-	
 }
