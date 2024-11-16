@@ -4,6 +4,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import br.edu.ifsp.dsw1.controller.command.Command;
+import br.edu.ifsp.dsw1.controller.command.ErrorCommand;
+import br.edu.ifsp.dsw1.controller.command.comandosTotem.DesembarqueCommand;
+import br.edu.ifsp.dsw1.controller.command.comandosTotem.EmbarqueCommand;
+import br.edu.ifsp.dsw1.controller.command.comandosTotem.Hall1Command;
+import br.edu.ifsp.dsw1.controller.command.comandosTotem.Hall2Command;
 import br.edu.ifsp.dsw1.model.entity.FlightData;
 import br.edu.ifsp.dsw1.model.entity.FlightDataCollection;
 import br.edu.ifsp.dsw1.model.entity.FlightDataSingleton;
@@ -31,59 +37,22 @@ public class TotemController extends HttpServlet{
 	
 	private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
+		Command command;
 		
 		if ("hall1".equals(action)) {
-			handleHall1(request, response);
+			command = new Hall1Command();
 		} else if ("hall2".equals(action)) {
-			handleHall2(request, response);
+			command = new Hall2Command();
 		} else if ("desembarque".equals(action)) {
-			handleDesembarque(request, response);
+			command = new DesembarqueCommand();
 		} else if ("embarque".equals(action)) {
-			handleEmbarque(request, response);
+			command = new EmbarqueCommand();
+		} else {
+			command = new ErrorCommand();
 		}
-	}
-	
-	private void handleHall1(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		FlightDataCollection collection = FlightDataSingleton.getInstance();
 		
-		List<FlightData> lista = collection.getAllFligthts().stream()
-				.filter(f -> f.getState() instanceof TakingOff)
-				.collect(Collectors.toList());
-		
-		request.setAttribute("lista_hall1", lista);
-		request.getRequestDispatcher("hall1.jsp").forward(request, response);
-	}
-	
-	private void handleHall2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		FlightDataCollection collection = FlightDataSingleton.getInstance();
-		
-		List<FlightData> lista = collection.getAllFligthts().stream()
-				.filter(f -> f.getState() instanceof TakingOff)
-				.collect(Collectors.toList());
-		
-		request.setAttribute("lista_hall2", lista);
-		request.getRequestDispatcher("hall2.jsp").forward(request, response);
-	}
-	
-	private void handleDesembarque(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		FlightDataCollection collection = FlightDataSingleton.getInstance();
-		
-		List<FlightData> lista = collection.getAllFligthts().stream()
-				.filter(f -> f.getState() instanceof Arriving)
-				.collect(Collectors.toList());
-		
-		request.setAttribute("desembarcados", lista);
-		request.getRequestDispatcher("salaDeDesembarque.jsp").forward(request, response);
-	}
-	
-	private void handleEmbarque(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		FlightDataCollection collection = FlightDataSingleton.getInstance();
-		
-		List<FlightData> lista = collection.getAllFligthts().stream()
-				.filter(f -> f.getState() instanceof Boarding)
-				.collect(Collectors.toList());
-		
-		request.setAttribute("embarcados", lista);
-		request.getRequestDispatcher("salaDeEmbarque.jsp").forward(request, response);
+		String view = command.execute(request, response);
+		var dispatcher = request.getRequestDispatcher(view);
+		dispatcher.forward(request, response);
 	}
 }
