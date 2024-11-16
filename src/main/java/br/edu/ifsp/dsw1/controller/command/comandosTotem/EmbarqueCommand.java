@@ -9,15 +9,18 @@ import br.edu.ifsp.dsw1.model.entity.FlightData;
 import br.edu.ifsp.dsw1.model.entity.FlightDataCollection;
 import br.edu.ifsp.dsw1.model.entity.FlightDataSingleton;
 import br.edu.ifsp.dsw1.model.flightstates.Boarding;
+import br.edu.ifsp.dsw1.model.observer.FlightDataObserver;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class EmbarqueCommand implements Command{
+public class EmbarqueCommand implements Command, FlightDataObserver{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		FlightDataCollection collection = FlightDataSingleton.getInstance();
+		
+		collection.register(this);
 		
 		List<FlightData> lista = collection.getAllFligthts().stream()
 				.filter(f -> f.getState() instanceof Boarding)
@@ -26,5 +29,10 @@ public class EmbarqueCommand implements Command{
 		request.setAttribute("embarcados", lista);
 		
 		return "salaDeEmbarque.jsp";
+	}
+
+	@Override
+	public void update(FlightData flight) {
+		System.out.println("Voo atualizado: " + flight.getFlightNumber());
 	}
 }
