@@ -3,6 +3,7 @@ package br.edu.ifsp.dsw1.controller.command.comandosAdmin;
 import java.io.IOException;
 
 import br.edu.ifsp.dsw1.controller.command.Command;
+import br.edu.ifsp.dsw1.model.entity.FlightData;
 import br.edu.ifsp.dsw1.model.entity.FlightDataCollection;
 import br.edu.ifsp.dsw1.model.entity.FlightDataSingleton;
 import jakarta.servlet.ServletException;
@@ -15,7 +16,13 @@ public class SendUpdateCommand implements Command{
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		FlightDataCollection collection = FlightDataSingleton.getInstance();
 		Long number = Long.parseLong(request.getParameter("numeroDeVoo"));
-		collection.updateFlight(number);
+		
+		FlightData flight = collection.getAllFligthts().stream()
+	            .filter(f -> f.getFlightNumber().equals(number))  
+	            .findFirst()
+	            .orElse(null);
+		
+		collection.updateFlight(flight.getFlightNumber());
 		return "admin.do?action=update";
 	}
 
