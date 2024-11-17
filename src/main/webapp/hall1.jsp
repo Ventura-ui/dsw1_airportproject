@@ -26,22 +26,24 @@
 		</thead>
 		<tbody>
 			<%
-			List<FlightData> lista = (List<FlightData>) request.getAttribute("lista_hall1");
-			if(lista != null){
-				for(FlightData f : lista){	
+			List<FlightData> lista = (List<FlightData>) request.getAttribute("desembarcados");
+			if (lista != null && !lista.isEmpty()) {
+			    for (FlightData f : lista) {
 			%>
 			<tr>
-				<td><%= f.getFlightNumber()%></td>
-				<td><%= f.getCompany()%></td>
-				<td><%= f.getTime()%></td>
-				<td><%= f.getState().getClass().getSimpleName()%></td>
+			    <td><%= f.getFlightNumber() %></td>
+			    <td><%= f.getCompany() %></td>
+			    <td><%= f.getTime() %></td>
+			    <td><%= f.getState().getClass().getSimpleName() %></td>
 			</tr>
 			<%
-				}
-			}else{
+			    }
+			} else {
 			%>
-			<td colspan="4">Nenhum voo no Hall 1!</td>
-			<%} %>
+			<tr>
+			    <td colspan="4">Nenhum voo no Hall 1!</td>
+			</tr>
+			<% } %>
 		</tbody>
 	</table>
 	

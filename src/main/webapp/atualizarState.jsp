@@ -27,7 +27,7 @@
 		<tbody>
 			<%
 			List<FlightData> lista = (List<FlightData>) request.getAttribute("flights");
-			if(lista != null){
+			if(lista != null && !lista.isEmpty()){
 				for(FlightData f : lista){	
 			%>
 			<tr>
