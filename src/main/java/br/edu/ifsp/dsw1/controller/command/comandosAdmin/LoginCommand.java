@@ -21,6 +21,7 @@ public class LoginCommand implements Command{
 			sessao.setAttribute("user", "admin");
 			return "homeAdmin.jsp";
 		}else {
+			request.setAttribute("errorMessage", "Dados de login incorretos.");
 			return "login.jsp?error=true";
 		}
 	}
