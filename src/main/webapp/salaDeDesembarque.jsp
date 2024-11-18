@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="refresh" content="4">
 <title>Sala de Desembarque</title>
 </head>
 <body>
