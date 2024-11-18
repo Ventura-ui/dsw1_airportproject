@@ -7,6 +7,15 @@
 <title>Home Admin</title>
 </head>
 <body>
+	<%
+    HttpSession sessao = request.getSession(false);
+    if (sessao == null || sessao.getAttribute("user") == null) {
+    	request.setAttribute("errorMessage", "Não é possível acessar a página de home admin sem estar logado.");
+    	request.getRequestDispatcher("login.jsp").forward(request, response);
+        return;  
+    }
+	%>
+
 	<h1>Administração dos Voos</h1>
 	<hr>
 	<nav>

@@ -15,13 +15,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class Hall1Command implements Command, FlightDataObserver{
-
+	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		FlightDataCollection collection = FlightDataSingleton.getInstance();
 		
-		collection.register(this);
-		
+        collection.register(this);
+            
 		List<FlightData> lista = collection.getAllFligthts().stream()
 				.filter(f -> f.getState() instanceof TakingOff)
 				.collect(Collectors.toList());
@@ -33,6 +33,6 @@ public class Hall1Command implements Command, FlightDataObserver{
 	
 	@Override
 	public void update(FlightData flight) {
-		System.out.println("Voo atualizado: " + flight.getFlightNumber());
+		System.out.println("Voo atualizado: " + flight.getFlightNumber() + " para o estado: " + flight.getState().getClass().getSimpleName());
 	}
 }

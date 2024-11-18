@@ -14,6 +14,10 @@ public class LogoutCommand implements Command{
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession sessao = request.getSession(false);
 		
+		if (sessao == null || sessao.getAttribute("user") == null) {
+	        request.setAttribute("errorMessage", "Não é possível acessar a página de logout sem estar logado.");
+	    }
+		
 		if(sessao != null) {
 			sessao.invalidate();
 		}

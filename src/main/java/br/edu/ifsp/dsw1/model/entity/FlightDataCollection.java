@@ -31,8 +31,10 @@ public class FlightDataCollection implements FlightDataSubject{
 
 	@Override
 	public void notifyObservers() {
-		observers.stream()
-			.forEach(observer -> observer.update(lastUpdated));
+		for (FlightDataObserver observer : new ArrayList<>(observers)) { 
+	        observer.update(lastUpdated);
+	        unregister(observer);
+	    }
 	}
 	
 	public void insertFlight(FlightData flight) {

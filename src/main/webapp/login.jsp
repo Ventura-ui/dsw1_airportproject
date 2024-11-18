@@ -25,5 +25,20 @@
 	<hr>
 	
 	<p><a href="index.jsp">Retornar ao menu</a></p>
+	
+	<br>
+	<br>
+	
+	<%
+        String errorMessage = (String) request.getAttribute("errorMessage");
+        if (errorMessage != null) {
+    %>
+        <div style="color: red; font-weight: bold;">
+            <h2><%= errorMessage %></h2>
+        </div>
+        <% 
+            session.removeAttribute("errorMessage");
+        }
+    %>
 </body>
 </html>

@@ -7,6 +7,15 @@
 <title>Cadastrar Voo</title>
 </head>
 <body>
+	<%
+    HttpSession sessao = request.getSession(false);
+    if (sessao == null || sessao.getAttribute("user") == null) {
+    	request.setAttribute("errorMessage", "Não é possível acessar a página de cadastrar voo sem estar logado.");
+    	request.getRequestDispatcher("login.jsp").forward(request, response);
+        return;  
+    }
+	%>
+
 	<h1>Fazer cadastro de um novo voo:</h1>
 	<br>
 	<hr>

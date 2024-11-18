@@ -9,6 +9,15 @@
 <title>Atualizar estado</title>
 </head>
 <body>
+	<%
+    HttpSession sessao = request.getSession(false);
+    if (sessao == null || sessao.getAttribute("user") == null) {
+    	request.setAttribute("errorMessage", "Não é possível acessar a página de atualizar estado sem estar logado.");
+    	request.getRequestDispatcher("login.jsp").forward(request, response);
+        return;  
+    }
+	%>
+
 	<h1>Atualizar estado de voo:</h1>
 	<br>
 	<hr>
