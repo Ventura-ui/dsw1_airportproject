@@ -34,5 +34,29 @@
 	<br>
 	<hr>
 	<p><a href="homeAdmin.jsp">Voltar</a></p>
+	
+	<br>
+	<br>
+	
+	<%
+        String error = (String) request.getAttribute("errorMessageCadastro");
+		String sucess = (String) request.getAttribute("sucessCadastro");
+        if (error != null) {
+    %>
+        <div style="color: red; font-weight: bold;">
+            <h2><%= error %></h2>
+        </div>
+        <% 
+        	request.removeAttribute("errorMessageCadastro");
+        }else if(sucess != null){
+    %>
+    	<div style="color: green; font-weight: bold;">
+            <h2><%= sucess %></h2>
+        </div>
+        <% 
+        	request.removeAttribute("sucessCadastro");
+        }
+		%>
+	
 </body>
 </html>

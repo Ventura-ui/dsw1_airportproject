@@ -15,16 +15,24 @@ public class CadastroCommand implements Command{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Long number = Long.parseLong(request.getParameter("number"));
+		FlightDataCollection collection = FlightDataSingleton.getInstance();
+		Long number = Long.parseLong(request.getParameter("number"));		
 		String company = request.getParameter("company");
 		String time = request.getParameter("time");
 		
+		boolean flightExists = collection.getAllFligthts().stream()
+                .anyMatch(f -> f.getFlightNumber().equals(number));
+		
+		if (flightExists) {
+            request.setAttribute("errorMessageCadastro", "Já existe um voo com este número.");
+            return "cadastrarVoo.jsp"; 
+        }
+		
 		FlightData flight = new FlightData(number, company, time);
 		flight.setState(Arriving.getIntance());
-		
-		FlightDataCollection collection = FlightDataSingleton.getInstance();
 		collection.insertFlight(flight);
+		request.setAttribute("sucessCadastro", "Voo cadastrado com sucesso.");
 		
-		return "homeAdmin.jsp";
+		return "cadastrarVoo.jsp";
 	}
 }

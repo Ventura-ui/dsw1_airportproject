@@ -30,14 +30,14 @@
 	<br>
 	
 	<%
-        String errorMessage = (String) request.getAttribute("errorMessage");
-        if (errorMessage != null) {
+        String error = (String) request.getAttribute("errorMessage");
+        if (error != null) {
     %>
         <div style="color: red; font-weight: bold;">
-            <h2><%= errorMessage %></h2>
+            <h2><%= error %></h2>
         </div>
         <% 
-            session.removeAttribute("errorMessage");
+            request.removeAttribute("errorMessage");
         }
     %>
 </body>
