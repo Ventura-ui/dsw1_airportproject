@@ -27,7 +27,7 @@
 		<input type="text" id="company" name="company" required><br><br>
 		
 		<label for="time">Horário:</label>
-		<input type="text" id="time" name="time" required><br><br>
+		<input type="time" id="time" name="time" required><br><br>
 		
 		<button type="submit">Enviar</button>
 	</form>
