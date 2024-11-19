@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="refresh" content="4">
+<meta http-equiv="refresh" content="2">
 <title>Hall 1</title>
 </head>
 <body>
@@ -27,7 +27,7 @@
 		</thead>
 		<tbody>
 			<%
-			List<FlightData> lista = (List<FlightData>) request.getAttribute("desembarcados");
+			List<FlightData> lista = (List<FlightData>) request.getAttribute("lista_hall1");
 			if (lista != null && !lista.isEmpty()) {
 			    for (FlightData f : lista) {
 			%>
@@ -41,9 +41,7 @@
 			    }
 			} else {
 			%>
-			<tr>
-			    <td colspan="4">Nenhum voo no Hall 1!</td>
-			</tr>
+			<td colspan="4">Nenhum voo no Hall 1!</td>
 			<% } %>
 		</tbody>
 	</table>

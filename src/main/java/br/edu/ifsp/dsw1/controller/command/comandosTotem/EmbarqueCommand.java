@@ -16,23 +16,37 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class EmbarqueCommand implements Command, FlightDataObserver{
 	
+	private boolean isRegistered = false;
+	private boolean podeUnregister = false;
+    private FlightDataCollection collection = FlightDataSingleton.getInstance();
+	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		FlightDataCollection collection = FlightDataSingleton.getInstance();
-		
-        collection.register(this);
+		if (!isRegistered) {
+            collection.register(this);
+            isRegistered = true;
+        }
 
 		List<FlightData> lista = collection.getAllFligthts().stream()
 				.filter(f -> f.getState() instanceof Boarding)
 				.collect(Collectors.toList());
 		
 		request.setAttribute("embarcados", lista);
+		
+		if (podeUnregister && isRegistered) {
+            collection.unregister(this);
+            isRegistered = false;
+            podeUnregister = false;
+        }
 
 		return "salaDeEmbarque.jsp";
 	}
 
 	@Override
 	public void update(FlightData flight) {
-		System.out.println("Voo atualizado: " + flight.getFlightNumber() + " para o estado: " + flight.getState().getClass().getSimpleName());
+		if(flight.getState() instanceof Boarding) {
+			System.out.println("Voo atualizado: " + flight.getFlightNumber() + " para o estado: " + flight.getState().getClass().getSimpleName());
+			podeUnregister = true;	
+		}
 	}
 }
