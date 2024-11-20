@@ -5,7 +5,7 @@
 
 ### Autor:
 
-O projeto do **Gerenciador de voos** foi feito pelo aluno de análise e desenvolvimento de sistemas do IFSP Araquara Gabriel Ventura Pires
+O projeto do **Gerenciador de voos** foi feito pelo aluno de análise e desenvolvimento de sistemas do IFSP Araquara Gabriel Ventura Pires.
 
 ### Técnologias:
 
