@@ -5,50 +5,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="refresh" content="2">
-<title>Hall 1</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="2">
+    <title>Hall 1</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-	<body>
-	<h1>Hall 1:</h1>
-	<br>
-	<hr>
-	<br>
-	
-	<table border="1">
-		<thead>
-			<tr>
-				<th>Número de voo</th>
-				<th>Companhia</th>
-				<th>Horário</th>
-				<th>Estado</th>
-			</tr>
-		</thead>
-		<tbody>
-			<%
-			List<FlightData> lista = (List<FlightData>) request.getAttribute("lista_hall1");
-			if (lista != null && !lista.isEmpty()) {
-			    for (FlightData f : lista) {
-			%>
-			<tr>
-			    <td><%= f.getFlightNumber() %></td>
-			    <td><%= f.getCompany() %></td>
-			    <td><%= f.getTime() %></td>
-			    <td><%= f.getState().getClass().getSimpleName() %></td>
-			</tr>
-			<%
-			    }
-			} else {
-			%>
-			<td colspan="4">Nenhum voo no Hall 1!</td>
-			<% } %>
-		</tbody>
-	</table>
-	
-	<br>
-	<hr>
-	<br>
-	<p><a href="index.jsp">Voltar</a></p>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="text-center mb-4">
+            <h1 class="text-primary">Hall 1</h1>
+            <p class="text-muted">Lista de voos no Hall 1</p>
+        </div>
+        <hr>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Número de Voo</th>
+                        <th>Companhia</th>
+                        <th>Horário</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                    List<FlightData> lista = (List<FlightData>) request.getAttribute("lista_hall1");
+                    if (lista != null && !lista.isEmpty()) {
+                        for (FlightData f : lista) {
+                    %>
+                    <tr>
+                        <td><%= f.getFlightNumber() %></td>
+                        <td><%= f.getCompany() %></td>
+                        <td><%= f.getTime() %></td>
+                        <td><%= f.getState().getClass().getSimpleName() %></td>
+                    </tr>
+                    <%
+                        }
+                    } else {
+                    %>
+                    <tr>
+                        <td colspan="4" class="text-center">Nenhum voo no Hall 1!</td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+
+        <hr>
+        <div class="text-center mt-4">
+            <a href="index.jsp" class="btn btn-link">Voltar</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
