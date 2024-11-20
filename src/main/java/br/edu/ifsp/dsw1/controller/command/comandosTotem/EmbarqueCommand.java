@@ -17,13 +17,13 @@ import jakarta.servlet.http.HttpServletResponse;
 public class EmbarqueCommand implements Command, FlightDataObserver{
 	
 	private boolean isRegistered = false;
-	private boolean podeUnregister = false;
-    private FlightDataCollection collection = FlightDataSingleton.getInstance();
+	private boolean podeUnregister = false; 
+    private FlightDataCollection collection = FlightDataSingleton.getInstance(); // pega a lista de voos cadastrados
 	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (!isRegistered) {
-            collection.register(this);
+		if (!isRegistered) { // verifica se este totem ja esta registrado como um observer
+            collection.register(this); // registra como observer
             isRegistered = true;
         }
 
@@ -33,20 +33,20 @@ public class EmbarqueCommand implements Command, FlightDataObserver{
 		
 		request.setAttribute("embarcados", lista);
 		
-		if (podeUnregister && isRegistered) {
-            collection.unregister(this);
+		if (podeUnregister && isRegistered) { //verifica se ja tiver registrado e puder ser unregister
+            collection.unregister(this); // da um unregister desse totem como observer
             isRegistered = false;
             podeUnregister = false;
         }
 
-		return "salaDeEmbarque.jsp";
+		return "salaDeEmbarque.jsp"; // retorna pra pagina do totem
 	}
 
 	@Override
 	public void update(FlightData flight) {
 		if(flight.getState() instanceof Boarding) {
-			System.out.println("Voo atualizado: " + flight.getFlightNumber() + " para o estado: " + flight.getState().getClass().getSimpleName());
-			podeUnregister = true;	
+			System.out.println("Voo atualizado: " + flight.getFlightNumber() + " para o estado: " + flight.getState().getClass().getSimpleName()); // exibe uma mensagem no console dizendo que tal voo foi atualizado pra tal estado
+			podeUnregister = true; // fala que ja pode dar unregister
 		}
 	}
 }

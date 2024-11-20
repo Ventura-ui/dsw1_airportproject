@@ -13,7 +13,7 @@
             <p class="text-muted">Preencha as informações do voo</p>
         </div>
         <hr>
-
+		<%-- Se a sessão não tiver sido iniciada vai retornar a página de login com uma mensagem de erro  --%>
         <%
             HttpSession sessao = request.getSession(false);
             if (sessao == null || sessao.getAttribute("user") == null) {
@@ -22,7 +22,7 @@
                 return;  
             }
         %>
-
+		<%-- Formulário de cadastro de voos--%>
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-4">
                 <form action="admin.do?action=cadastro" method="post" class="border rounded p-4 bg-white shadow-sm">
@@ -44,7 +44,7 @@
                 </form>
             </div>
         </div>
-
+		<%-- Se o número de voo for igual ao de algum cadastrado vai retornmar uma mensagem de erro  --%>
         <%
             String error = (String) request.getAttribute("errorMessageCadastro");
             String sucess = (String) request.getAttribute("sucessCadastro");

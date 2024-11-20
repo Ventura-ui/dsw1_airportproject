@@ -28,6 +28,7 @@
                         <th>Estado</th>
                     </tr>
                 </thead>
+                <%-- Resgatando a lista de voos que foram cadastrados com o estado TookOff--%>
                 <tbody>
                     <%
                     List<FlightData> lista = (List<FlightData>) request.getAttribute("lista_hall2");

@@ -12,13 +12,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class UpdateCommand implements Command{
-
+	// doGet do atualizar state
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		FlightDataCollection collection = FlightDataSingleton.getInstance();
+		FlightDataCollection collection = FlightDataSingleton.getInstance(); // pega a lista de voos cadastrados
 	    List<FlightData> flights = collection.getAllFligthts();
-	    request.setAttribute("flights", flights);
-	    return "atualizarState.jsp";
+	    request.setAttribute("flights", flights); // determina um atributo flights que seria a lista de voos que vai ser usado no atualizarState.jsp
+	    return "atualizarState.jsp"; // retorna pro atualizar state
 	}
 	
 

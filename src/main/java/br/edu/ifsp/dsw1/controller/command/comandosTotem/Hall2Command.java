@@ -20,13 +20,13 @@ public class Hall2Command implements Command, FlightDataObserver{
 	
 	private boolean isRegistered = false;
 	private boolean podeUnregister = false;
-    private FlightDataCollection collection = FlightDataSingleton.getInstance();
-    private FlightFinishedSingleton finishedFlights = FlightFinishedSingleton.getInstance();
+    private FlightDataCollection collection = FlightDataSingleton.getInstance(); // pega a lista de voos cadastrados
+    private FlightFinishedSingleton finishedFlights = FlightFinishedSingleton.getInstance(); // // pega a lista de voos cadastrados que foram "finalizados"
 	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (!isRegistered) {
-            collection.register(this);
+		if (!isRegistered) { // verifica se este totem ja esta registrado como um observer
+            collection.register(this); // registra como observer
             isRegistered = true;
         }
 
@@ -34,21 +34,21 @@ public class Hall2Command implements Command, FlightDataObserver{
 		
 		request.setAttribute("lista_hall2", lista);
 		
-		if (podeUnregister && isRegistered) {
-            collection.unregister(this);
-            isRegistered = false;
+		if (podeUnregister && isRegistered) { //verifica se ja tiver registrado e puder ser unregister
+            collection.unregister(this); // da um unregister desse totem como observer
+            isRegistered = false; 
             podeUnregister = false;
         }
 		
-		return "hall2.jsp";
+		return "hall2.jsp"; // retorna pra pagina do totem
 	}
 
 	@Override
 	public void update(FlightData flight) {	
-		if (flight.getState() instanceof TookOff) {
-			System.out.println("Voo atualizado: " + flight.getFlightNumber() + " para o estado: " + flight.getState().getClass().getSimpleName());
-			finishedFlights.addFinishedFlight(flight);
-			podeUnregister = true;
+		if (flight.getState() instanceof TookOff) { // verifica se é da instancia tookOff
+			System.out.println("Voo atualizado: " + flight.getFlightNumber() + " para o estado: " + flight.getState().getClass().getSimpleName()); // exibe uma mensagem no console dizendo que tal voo foi atualizado pra tal estado
+			finishedFlights.addFinishedFlight(flight); // adiciona a lista de voos em estado de TookOff
+			podeUnregister = true; // fala que ja pode dar unregister
         }
 	}
 }

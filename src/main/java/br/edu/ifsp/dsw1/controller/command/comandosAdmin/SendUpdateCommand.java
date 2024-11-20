@@ -11,19 +11,19 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class SendUpdateCommand implements Command{
-
+	// doPost do atualizar state
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		FlightDataCollection collection = FlightDataSingleton.getInstance();
-		Long number = Long.parseLong(request.getParameter("numeroDeVoo"));
+		FlightDataCollection collection = FlightDataSingleton.getInstance(); // pega a lista de voos cadastrados
+		Long number = Long.parseLong(request.getParameter("numeroDeVoo")); // recupera o numero de voo através do hidden
 		
-		FlightData flight = collection.getAllFligthts().stream()
+		FlightData flight = collection.getAllFligthts().stream() // verifica se tem algum voo com esse numero
 	            .filter(f -> f.getFlightNumber().equals(number))  
 	            .findFirst()
 	            .orElse(null);
 		
-		collection.updateFlight(flight.getFlightNumber());
-		return "admin.do?action=update";
+		collection.updateFlight(flight.getFlightNumber()); // atuaiza o estado
+		return "admin.do?action=update"; // retorna pro doGet do atualizar state
 	}
 
 }

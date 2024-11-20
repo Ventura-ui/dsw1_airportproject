@@ -23,8 +23,8 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/admin.do")
 public class AdminController extends HttpServlet{
-	
-private static final long serialVersionUID = 1L;
+	// implementando o padrão do front-controller
+	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processRequest(request, response);
@@ -38,22 +38,22 @@ private static final long serialVersionUID = 1L;
 		String action = request.getParameter("action");
 		Command command;
 		
-		if ("login".equals(action)) {
-			command = new LoginCommand();
+		if ("login".equals(action)) { 
+			command = new LoginCommand(); // caso o link seja /admin.do?action=login o command receberá o LoginCommand
 		} else if ("logout".equals(action)) {
-			command = new LogoutCommand();
+			command = new LogoutCommand(); // caso o link seja /admin.do?action=logout o command receberá o LogoutCommand
 		} else if ("cadastro".equals(action)) {
-			command = new CadastroCommand();
+			command = new CadastroCommand(); // caso o link seja /admin.do?action=cadastro o command receberá o CadastroCommand
 		} else if ("update".equals(action)) {
-			command = new UpdateCommand();
+			command = new UpdateCommand(); // caso o link seja /admin.do?action=update o command receberá o UpdateCommand
 		} else if ("sendUpdate".equals(action)) {
-			command = new SendUpdateCommand();
+			command = new SendUpdateCommand(); // caso o link seja /admin.do?action=sendUpdate o command receberá o SendUpdateCommand
 		} else {
-			command = new ErrorCommand();
+			command = new ErrorCommand(); // caso não seja nenhum dos outros o command receberá o ErrorCommand
 		}
 		
-		String view = command.execute(request, response);
+		String view = command.execute(request, response); // irá executar o command
 		var dispatcher = request.getRequestDispatcher(view);
-		dispatcher.forward(request, response);
+		dispatcher.forward(request, response); 
 	}
 }

@@ -9,20 +9,20 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 public class LogoutCommand implements Command{
-
+	// doGet do logout
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession sessao = request.getSession(false);
+		HttpSession sessao = request.getSession(false); // pega a sessao 
 		
-		if (sessao == null || sessao.getAttribute("user") == null) {
+		if (sessao == null || sessao.getAttribute("user") == null) { // se a sessao for nula retorna pra pagina de login com uma mensagem de erro
 	        request.setAttribute("errorMessage", "Não é possível acessar a página de logout sem estar logado.");
 	    }
 		
 		if(sessao != null) {
-			sessao.invalidate();
+			sessao.invalidate(); // invalida a sessao 
 		}
 		
-		return "login.jsp";
+		return "login.jsp"; // retorna pra pagina de login
 	}
 
 }

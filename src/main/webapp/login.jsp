@@ -14,7 +14,7 @@
             <p class="text-muted">Acesse o painel administrativo</p>
         </div>
         <hr>
-
+		<%-- Formulário de login--%>
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-4">
                 <form action="admin.do?action=login" method="post" class="border rounded p-4 bg-white shadow-sm">
@@ -32,7 +32,7 @@
                 </form>
             </div>
         </div>
-
+		<%-- As mensagens de erro tanto de login incorreto e tanto de acesso indevido á outras páginas será mostrada aqui--%>
         <%
             String error = (String) request.getAttribute("errorMessage");
             if (error != null) {

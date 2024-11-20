@@ -15,7 +15,7 @@
             <p class="text-muted">Escolha um voo para atualizar o estado</p>
         </div>
         <hr>
-
+		<%-- Se a sessão não tiver sido iniciada vai retornar a página de login com uma mensagem de erro  --%>
         <%
             HttpSession sessao = request.getSession(false);
             if (sessao == null || sessao.getAttribute("user") == null) {
@@ -24,7 +24,7 @@
                 return;  
             }
         %>
-
+		<%-- Tabelaa de voos cadastrados--%>
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <thead class="table-primary">
@@ -36,10 +36,11 @@
                         <th>Ação</th>
                     </tr>
                 </thead>
+                <%-- Resgatando a lista de voos que foram cadastrados--%>
                 <tbody>
                     <%
                         List<FlightData> lista = (List<FlightData>) request.getAttribute("flights");
-                        if (lista != null && !lista.isEmpty()) {
+                        if (lista != null && !lista.isEmpty()) { // se a lista não for nulla nem vazia será mostrada a tabela
                             for (FlightData f : lista) {
                     %>
                     <tr>
@@ -56,7 +57,7 @@
                     </tr>
                     <%
                             }
-                        } else {
+                        } else { // linha mostrada se a lista for nula
                     %>
                     <tr>
                         <td colspan="5" class="text-center">Nenhum voo disponível</td>

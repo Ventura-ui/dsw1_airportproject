@@ -6,6 +6,7 @@ public class FlightDataSingleton {
 	
 	private FlightDataSingleton() {}
 	
+	// retorna a instancia do colection para que possamos utilizar a mesma lista de voos em nossos commands/servlets
 	public static synchronized FlightDataCollection getInstance() {
 		if(instance == null) {
 			instance = new FlightDataCollection();

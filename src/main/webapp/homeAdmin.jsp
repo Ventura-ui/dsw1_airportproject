@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
-
+	<%-- Se a sessão não tiver sido iniciada vai retornar a página de login com uma mensagem de erro  --%>
     <%
     HttpSession sessao = request.getSession(false);
     if (sessao == null || sessao.getAttribute("user") == null) {
@@ -24,7 +24,7 @@
             <p class="text-muted">Bem-vindo(a) ao painel administrativo</p>
         </div>
         <hr>
-
+        
         <nav class="nav flex-column text-center">
             <a href="cadastrarVoo.jsp" class="nav-link btn btn-outline-primary mb-2">Cadastrar Voo</a>
             <a href="admin.do?action=update" class="nav-link btn btn-outline-success mb-2">Atualizar Estado</a>
